@@ -1,5 +1,6 @@
 from grocery_app.extensions import app, db
 from grocery_app.routes import main
+from grocery_app.models import *
 
 app.register_blueprint(main)
 
