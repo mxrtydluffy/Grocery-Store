@@ -37,7 +37,7 @@ def new_store():
         db.session.add(new_store)
         db.session.commit()
 
-        flash('New store added!')
+        flash('New store was successfully added!')
         return redirect(url_for('main.store_detail', store_id=new_store.id))
 
     # TODO: Send the form to the template and use it to render the form fields
@@ -55,10 +55,10 @@ def new_item():
     if form.validate_on_submit():
         new_grocery_item = GroceryItem(
             name = form.name.data,
-            category = form.category.data,
             price = form.price.data,
+            category = form.category.data,
             photo_url = form.photo_url.data,
-            store_id = form.store_id.data,
+            store_id = form.store.data,
         )
         # Adding to database
         db.session.add(new_grocery_item)
@@ -68,14 +68,14 @@ def new_item():
         return redirect(url_for('main.item_detail', item_id=new_item.id))
 
     # TODO: Send the form to the template and use it to render the form fields
-    return render_template('new_item.html')
+    return render_template('new_item.html', form=form)
 
 @main.route('/store/<store_id>', methods=['GET', 'POST'])
 def store_detail(store_id):
     store = GroceryStore.query.get(store_id)
     # TODO: Create a GroceryStoreForm and pass in `obj=store`
 
-    form = GroceryStoreForm(obj = store)
+    form = GroceryStoreForm(obj=store)
 
     # TODO: If form was submitted and was valid:
     # - update the GroceryStore object and save it to the database,
@@ -122,4 +122,3 @@ def item_detail(item_id):
     # TODO: Send the form to the template and use it to render the form fields
     item = GroceryItem.query.get(item_id)
     return render_template('item_detail.html', item=item, form=form)
-
