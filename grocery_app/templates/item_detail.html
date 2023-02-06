@@ -5,7 +5,7 @@
 
 <p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
 
-<p><strong>Price:</strong> {{ item.price }}</p>
+<p><strong>Price:</strong> ${{ item.price }}</p>
 
 <p><strong>Category:</strong> {{ item.category }}</p>
 
@@ -14,7 +14,7 @@
 
 <h2>Edit Item</h2>
 
-<form>
+<form method="POST" action="{{ url_for('main.item_detail', item_id=item.id) ">
     <fieldset>
         <legend>Edit Item information:</legend>
 
@@ -28,9 +28,6 @@
         {{ form.category }}
 
 
-
-        <!-- TODO: Remove the next paragraph and use the `form` object passed in 
-            from the route to render a form. -->
         {{ form.photo_url.label }}
         {{ form.photo_url }}
 

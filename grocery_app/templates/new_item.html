@@ -3,48 +3,58 @@
 
 <h1>New Item</h1>
 
-<form method="POST">
+<form method="POST" action="{{ url_for('main.new_item') }}">
+    {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
-        <ul>
-            {% for error in form.name.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-            {%for error in form.price.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-            {%for error in form.category.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-            {%for error in form.photo_url.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-            {% for error in form.store.errors %}
-            <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
 
         {{ form.name.label }}
         {{ form.name }}
+        <!--Show specific errors-->
+        <ul>
+        {% for error in form.name.errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+        </ul>
 
         {{ form.price.label }}
         {{ form.price }}
+        <!--Show specific errors-->
+        <ul>
+        {% for error in form.price.errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+        </ul>
 
         {{ form.category.label }}
         {{ form.category }}
+        <!--Show specific errors-->
+        <ul>
+        {% for error in form.category.errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+        </ul>
 
         {{ form.photo_url.label }}
         {{ form.photo_url }}
+        <!--Show specific errors-->
+        <ul>
+        {% for error in form.photo_url.errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+        </ul>
 
         {{ form.store.label }}
         {{ form.store }}
-
-
-        <!-- TODO: Remove the next paragraph and use the `form` object passed in 
-            from the route to render a form. -->
+        <!--Show specific errors-->
+        <ul>
+        {% for error in form.store.errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+        </ul>
+        
         {{ form.submit }}
     </fieldset>
 </form>
-
 
 {% endblock %}
