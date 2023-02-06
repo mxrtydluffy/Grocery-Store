@@ -6,7 +6,7 @@
 <form method="POST" action="{{ url_for('main.new_store') }}">
     {{ form.csrf_token }}
     <fieldset>
-        <legend>Please enter the information for this store:</legend>
+        <!-- <legend>Please enter the information for this store:</legend> -->
 
         {{ form.title.label }}
         {{ form.title }}

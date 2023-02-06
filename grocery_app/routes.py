@@ -15,7 +15,8 @@ main = Blueprint("main", __name__)
 @main.route('/')
 def homepage():
     all_stores = GroceryStore.query.all()
-    print(all_stores)
+    for store in all_stores:
+        print(store.title)
     return render_template('home.html', all_stores=all_stores)
 
 @main.route('/new_store', methods=['GET', 'POST'])
