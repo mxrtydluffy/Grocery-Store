@@ -83,6 +83,12 @@ def store_detail(store_id):
     # - flash a success message, and
     # - redirect the user to the store detail page.
 
+    if form.delete.data:
+        GroceryStore.query.filter_by(id=store_id).delete()
+        db.session.commit()
+        return redirect('/')
+
+    # TODO: Send the form to the template and use it to render the form fields
     if form.validate_on_submit():
         store.title = form.title.data
         store.address = form.address.data
@@ -92,10 +98,8 @@ def store_detail(store_id):
         db.session.commit()
 
         flash('Store updated successfully!')
-        return redirect(url_for('main.store_detail', store_id = store.id))
+        # return redirect(url_for('main.store_detail', store_id = store.id))
 
-    # TODO: Send the form to the template and use it to render the form fields
-    store = GroceryStore.query.get(store_id)
     return render_template('store_detail.html', store=store, form=form)
 
 @main.route('/item/<item_id>', methods=['GET', 'POST'])
@@ -108,6 +112,11 @@ def item_detail(item_id):
     # - update the GroceryItem object and save it to the database,
     # - flash a success message, and
     # - redirect the user to the item detail page.
+
+    if form.validate_on_submit():
+        item.name = form.name.data
+        item.price = form.price.data
+
     if form.validate_on_submit():
         item.name = form.name.data,
         item.category = form.category.data,
@@ -118,8 +127,8 @@ def item_detail(item_id):
         db.session.add(item)
         db.session.commit()
 
-        return redirect(url_for('main.item_detail', item_id = item.id))
+        flash('Item edited successfully')
+        # return redirect(url_for('main.item_detail', item_id = item.id))
 
-    # TODO: Send the form to the template and use it to render the form fields
-    item = GroceryItem.query.get(item_id)
+    
     return render_template('item_detail.html', item=item, form=form)

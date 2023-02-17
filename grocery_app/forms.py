@@ -27,6 +27,7 @@ class GroceryStoreForm(FlaskForm):
             Length(min=3, max=80, message="You address must be between 3 and 80 characters.")
         ])
     submit = SubmitField('Submit')
+    delete = SubmitField('Delete')
 
 class GroceryItemForm(FlaskForm):
     """Form for adding/updating a GroceryItem."""
@@ -53,3 +54,4 @@ class GroceryItemForm(FlaskForm):
         ])
     store = QuerySelectField('Store', query_factory=factory_store, validators=[DataRequired()])
     submit = SubmitField('Submit')
+    delete = SubmitField('Delete')

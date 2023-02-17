@@ -11,16 +11,22 @@
         {{ form.title.label }}
         {{ form.title }}
 
+        <ul>
+            {% for error in form.title.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
         {{ form.address.label }}
         {{ form.address }}
 
         <!--Showing Errors-->
         <ul>
             {% for error in form.title.errors %}
-            <li class="error">{{ error }}</li>
+                <li class="error">{{ error }}</li>
             {% endfor %}
             {% for error in form.address.errors %}
-            <li class="error">{{ error }}</li>
+                <li class="error">{{ error }}</li>
             {% endfor %}
         </ul>
 
