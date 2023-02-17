@@ -5,6 +5,9 @@ from wtforms.validators import DataRequired, Length, URL, ValidationError
 from grocery_app.models import ItemCategory, GroceryStore, GroceryItem
 from wtforms.fields.html5 import DateField
 
+def factory_store():
+    return GroceryStore.query.all()
+
 class GroceryStoreForm(FlaskForm):
     """Form for adding/updating a GroceryStore."""
 
@@ -41,7 +44,12 @@ class GroceryItemForm(FlaskForm):
         Length(min=3, max=80, message="Item must be between 3 and 80 characters.")
     ])
     price = FloatField('Item price', validators=[DataRequired()])
-    category = SelectField('Category', choices=ItemCategory.choices())
-    photo_url = StringField('Url', validators=[DataRequired()])
-    store = QuerySelectField('Store', query_factory=lambda: GroceryStore.query, validators=[DataRequired()])
+    category = SelectField('Category',
+        validators = [DataRequired()],
+    choices=ItemCategory.choices())
+    photo_url = StringField('Url', validators=[
+        DataRequired(),
+        Length(min=3, max=200, message="Your url needs to be between 3 and 200 characters.")
+        ])
+    store = QuerySelectField('Store', query_factory=factory_store, validators=[DataRequired()])
     submit = SubmitField('Submit')
